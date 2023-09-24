@@ -1,9 +1,38 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React from "react";
 
-const Block = ({ value }) => {
+const handlePress = (position, arr, setArr, turn, setTurn) => {
+  if (
+    !arr[Number(position.charAt(0)) - 1][Number(position.charAt(1)) - 1].isHeld
+  ) {
+    const newArr = [...arr];
+    if (turn === 1) {
+      newArr[Number(position.charAt(0)) - 1][
+        Number(position.charAt(1)) - 1
+      ].value = "X";
+      setTurn(2);
+    } else if (turn === 2) {
+      newArr[Number(position.charAt(0)) - 1][
+        Number(position.charAt(1)) - 1
+      ].value = "O";
+      setTurn(1);
+    }
+
+    newArr[Number(position.charAt(0)) - 1][
+      Number(position.charAt(1)) - 1
+    ].isHeld = true;
+    setArr(newArr);
+  }
+};
+
+const Block = ({ arr, value, position, setArr, turn, setTurn }) => {
   return (
-    <TouchableOpacity style={styles.block}>
+    <TouchableOpacity
+      style={styles.block}
+      onPress={() => {
+        handlePress(position, arr, setArr, turn, setTurn);
+      }}
+    >
       <Text style={styles.blockText}>{value}</Text>
     </TouchableOpacity>
   );

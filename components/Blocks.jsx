@@ -2,24 +2,25 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Block from "../components/Block";
 
-const Blocks = ({ arr }) => {
+const Blocks = ({ arr, setArr, turn, setTurn }) => {
   return (
     <View style={styles.gameContainer}>
       <View style={styles.blockContainer}>
         {arr.map((item) => {
           return item.map((i) => {
-            return <Block key={i.position} value={i.value} />;
+            return (
+              <Block
+                key={i.position}
+                arr={arr}
+                value={i.value}
+                position={i.position}
+                setArr={setArr}
+                turn={turn}
+                setTurn={setTurn}
+              />
+            );
           });
         })}
-        {/* <Block />
-            <Block />
-            <Block />
-            <Block />
-            <Block />
-            <Block />
-            <Block />
-            <Block />
-            <Block /> */}
       </View>
     </View>
   );
@@ -36,11 +37,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   blockContainer: {
-    width: "85%",
-    height: "83%",
+    width: 293,
+    height: 293,
     // backgroundColor: "green",
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 31,
+    gap: 10,
   },
 });
