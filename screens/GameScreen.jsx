@@ -74,6 +74,59 @@ const GameScreen = () => {
       }
     } else {
       // check if all the blocks are fulled if yes: show draw
+
+      // straight down
+      for (i = 0; i <= 2; i++) {
+        if (
+          arr[0][i].isHeld &&
+          arr[1][i].isHeld &&
+          arr[2][i].isHeld &&
+          arr[0][i].value == arr[1][i].value &&
+          arr[0][i].value == arr[2][i].value
+        ) {
+          setWinner(arr[0][i].value);
+          for (ii = 0; ii <= 2; ii++) {
+            for (j = 0; j <= 2; j++) {
+              if (
+                !(
+                  (j == i && ii == 0) ||
+                  (j == i && ii == 1) ||
+                  (j == i && ii == 2)
+                )
+              ) {
+                arr[ii][j].win = false;
+              }
+            }
+          }
+          break;
+        } else {
+          // horizontal
+          if (
+            arr[i][0].isHeld &&
+            arr[i][1].isHeld &&
+            arr[i][2].isHeld &&
+            arr[i][0].value == arr[i][1].value &&
+            arr[i][0].value == arr[i][2].value
+          ) {
+            setWinner(arr[i][0].value);
+            for (ii = 0; ii <= 2; ii++) {
+              for (j = 0; j <= 2; j++) {
+                if (
+                  !(
+                    (ii == i && j == 0) ||
+                    (ii == i && j == 1) ||
+                    (ii == i && j == 2)
+                  )
+                ) {
+                  arr[ii][j].win = false;
+                }
+              }
+            }
+            break;
+          }
+        }
+      }
+
       let count = 0;
       for (i = 0; i <= 2; i++) {
         for (j = 0; j <= 2; j++) {
@@ -84,58 +137,6 @@ const GameScreen = () => {
       }
       if (count === 9) {
         setWinner("Draw!");
-      } else {
-        // straight down
-        for (i = 0; i <= 2; i++) {
-          if (
-            arr[0][i].isHeld &&
-            arr[1][i].isHeld &&
-            arr[2][i].isHeld &&
-            arr[0][i].value == arr[1][i].value &&
-            arr[0][i].value == arr[2][i].value
-          ) {
-            setWinner(arr[0][i].value);
-            for (ii = 0; ii <= 2; ii++) {
-              for (j = 0; j <= 2; j++) {
-                if (
-                  !(
-                    (j == i && ii == 0) ||
-                    (j == i && ii == 1) ||
-                    (j == i && ii == 2)
-                  )
-                ) {
-                  arr[ii][j].win = false;
-                }
-              }
-            }
-            break;
-          } else {
-            // horizontal
-            if (
-              arr[i][0].isHeld &&
-              arr[i][1].isHeld &&
-              arr[i][2].isHeld &&
-              arr[i][0].value == arr[i][1].value &&
-              arr[i][0].value == arr[i][2].value
-            ) {
-              setWinner(arr[i][0].value);
-              for (ii = 0; ii <= 2; ii++) {
-                for (j = 0; j <= 2; j++) {
-                  if (
-                    !(
-                      (ii == i && j == 0) ||
-                      (ii == i && j == 1) ||
-                      (ii == i && j == 2)
-                    )
-                  ) {
-                    arr[ii][j].win = false;
-                  }
-                }
-              }
-              break;
-            }
-          }
-        }
       }
     }
   };

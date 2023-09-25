@@ -48,7 +48,7 @@ export default Block;
 const styles = StyleSheet.create({
   colorX: { backgroundColor: "#bed106" },
   colorO: { backgroundColor: "#388e3c" },
-  opacity: { opacity: 0.6 },
+  opacity: { opacity: 0.45 },
   block: {
     width: 90,
     height: 90,
