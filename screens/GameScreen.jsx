@@ -11,19 +11,19 @@ const GameScreen = () => {
 
   const [arr, setArr] = useState([
     [
-      { isHeld: false, value: "", position: "11" },
-      { isHeld: false, value: "", position: "12" },
-      { isHeld: false, value: "", position: "13" },
+      { isHeld: false, value: "", position: "11", win: null },
+      { isHeld: false, value: "", position: "12", win: null },
+      { isHeld: false, value: "", position: "13", win: null },
     ],
     [
-      { isHeld: false, value: "", position: "21" },
-      { isHeld: false, value: "", position: "22" },
-      { isHeld: false, value: "", position: "23" },
+      { isHeld: false, value: "", position: "21", win: null },
+      { isHeld: false, value: "", position: "22", win: null },
+      { isHeld: false, value: "", position: "23", win: null },
     ],
     [
-      { isHeld: false, value: "", position: "31" },
-      { isHeld: false, value: "", position: "32" },
-      { isHeld: false, value: "", position: "33" },
+      { isHeld: false, value: "", position: "31", win: null },
+      { isHeld: false, value: "", position: "32", win: null },
+      { isHeld: false, value: "", position: "33", win: null },
     ],
   ]);
   useEffect(() => {
@@ -33,7 +33,9 @@ const GameScreen = () => {
   const [winner, setWinner] = useState(null);
 
   useEffect(() => {
-    winner ? setShowModal(true) : null;
+    setTimeout(() => {
+      winner ? setShowModal(true) : null;
+    }, 1000);
   }, [winner]);
 
   const checkWinner = () => {
@@ -46,6 +48,13 @@ const GameScreen = () => {
       arr[0][0].value == arr[2][2].value
     ) {
       setWinner(arr[0][0].value);
+      for (i = 0; i <= 2; i++) {
+        for (j = 0; j <= 2; j++) {
+          if (i != j) {
+            arr[i][j].win = false;
+          }
+        }
+      }
     }
     // diagonal condition R to L
     else if (
@@ -56,6 +65,13 @@ const GameScreen = () => {
       arr[0][2].value == arr[2][0].value
     ) {
       setWinner(arr[0][2].value);
+      for (i = 0; i <= 2; i++) {
+        for (j = 0; j <= 2; j++) {
+          if (!((i == 0 && j == 2) || (i == j) == 1 || (i == 2 && j == 0))) {
+            arr[i][j].win = false;
+          }
+        }
+      }
     } else {
       // check if all the blocks are fulled if yes: show draw
       let count = 0;
@@ -79,7 +95,22 @@ const GameScreen = () => {
             arr[0][i].value == arr[2][i].value
           ) {
             setWinner(arr[0][i].value);
+            for (ii = 0; ii <= 2; ii++) {
+              for (j = 0; j <= 2; j++) {
+                if (
+                  !(
+                    (j == i && ii == 0) ||
+                    (j == i && ii == 1) ||
+                    (j == i && ii == 2)
+                  )
+                ) {
+                  arr[ii][j].win = false;
+                }
+              }
+            }
+            break;
           } else {
+            // horizontal
             if (
               arr[i][0].isHeld &&
               arr[i][1].isHeld &&
@@ -88,6 +119,20 @@ const GameScreen = () => {
               arr[i][0].value == arr[i][2].value
             ) {
               setWinner(arr[i][0].value);
+              for (ii = 0; ii <= 2; ii++) {
+                for (j = 0; j <= 2; j++) {
+                  if (
+                    !(
+                      (ii == i && j == 0) ||
+                      (ii == i && j == 1) ||
+                      (ii == i && j == 2)
+                    )
+                  ) {
+                    arr[ii][j].win = false;
+                  }
+                }
+              }
+              break;
             }
           }
         }

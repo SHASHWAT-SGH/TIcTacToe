@@ -25,10 +25,15 @@ const handlePress = (position, arr, setArr, turn, setTurn) => {
   }
 };
 
-const Block = ({ arr, value, position, setArr, turn, setTurn }) => {
+const Block = ({ arr, value, position, setArr, turn, setTurn, win }) => {
   return (
     <TouchableOpacity
-      style={styles.block}
+      style={[
+        styles.block,
+        value === "X" ? styles.colorX : null,
+        value === "O" ? styles.colorO : null,
+        win === false ? styles.opacity : null,
+      ]}
       onPress={() => {
         handlePress(position, arr, setArr, turn, setTurn);
       }}
@@ -41,6 +46,9 @@ const Block = ({ arr, value, position, setArr, turn, setTurn }) => {
 export default Block;
 
 const styles = StyleSheet.create({
+  colorX: { backgroundColor: "#bed106" },
+  colorO: { backgroundColor: "#388e3c" },
+  opacity: { opacity: 0.6 },
   block: {
     width: 90,
     height: 90,
@@ -52,5 +60,6 @@ const styles = StyleSheet.create({
     fontSize: 50,
     textAlign: "center",
     fontWeight: "800",
+    color: "#FFFFFF",
   },
 });

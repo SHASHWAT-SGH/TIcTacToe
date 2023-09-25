@@ -17,6 +17,7 @@ const Blocks = ({ arr, setArr, turn, setTurn }) => {
                 setArr={setArr}
                 turn={turn}
                 setTurn={setTurn}
+                win={i.win}
               />
             );
           });
