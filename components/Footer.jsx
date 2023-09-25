@@ -1,42 +1,20 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
+import ResetBtn from "./ResetBtn";
 
-const handleReset = (setArr, setTurn) => {
-  setArr([
-    [
-      { isHeld: false, value: "", position: "11" },
-      { isHeld: false, value: "", position: "12" },
-      { isHeld: false, value: "", position: "13" },
-    ],
-    [
-      { isHeld: false, value: "", position: "21" },
-      { isHeld: false, value: "", position: "22" },
-      { isHeld: false, value: "", position: "23" },
-    ],
-    [
-      { isHeld: false, value: "", position: "31" },
-      { isHeld: false, value: "", position: "32" },
-      { isHeld: false, value: "", position: "33" },
-    ],
-  ]);
-  setTurn(1);
-};
-
-const Footer = ({ turn, setArr, setTurn }) => {
+const Footer = ({ turn, setArr, setTurn, setShowModal, setWinner }) => {
   return (
     <View style={styles.footerWrapper}>
       <Text style={styles.footerText}>
         Turn of player:{" "}
         <Text style={styles.playerTurn}>{turn === 1 ? "X" : "O"}</Text>
       </Text>
-      <TouchableOpacity style={styles.resetbtn}>
-        <Text
-          style={styles.resetbtnText}
-          onPress={() => handleReset(setArr, setTurn)}
-        >
-          Reset
-        </Text>
-      </TouchableOpacity>
+      <ResetBtn
+        setArr={setArr}
+        setTurn={setTurn}
+        setShowModal={setShowModal}
+        setWinner={setWinner}
+      />
     </View>
   );
 };
@@ -56,17 +34,5 @@ const styles = StyleSheet.create({
   },
   playerTurn: {
     fontSize: 24,
-  },
-  resetbtn: {
-    padding: 8,
-    backgroundColor: "skyblue",
-    width: 80,
-    borderRadius: 7,
-    alignSelf: "center",
-    marginTop: 25,
-  },
-  resetbtnText: {
-    fontSize: 18,
-    textAlign: "center",
   },
 });
